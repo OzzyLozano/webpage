@@ -1,0 +1,373 @@
+/* functions */
+@function toRem($value) {
+  @return calc(($value / 16)) + rem;
+}
+
+/* variables & fonts */
+$primary: #0ff;
+$secondary: #f0f0f0;
+$background: #f0f0f0;
+
+:root {
+  --width: 10rem;
+  --titleFontSize: 1.6rem;
+  --subtitleFontSize: 1.3rem;
+  --contentFontSize: 1rem;
+}
+@media (min-width: toRem(640)) {
+  :root {
+    --width: 8rem;
+    --titleFontSize: 1.8rem;
+    --subtitleFontSize: 1.4rem;
+    --contentFontSize: 1.2rem;
+  }
+}
+@media (min-width: toRem(768)) {
+  :root {
+    --width: 10rem;
+    --titleFontSize: 2rem;
+    --subtitleFontSize: 1.6rem;
+  }
+}
+@media (min-width: toRem(1024)) {
+  :root {
+    --width: 12rem;
+  }
+}
+
+$navbarHeight: 4.5rem;
+$logoimg: var(--width);
+$optionSize: calc($logoimg/3);
+$iconSize: calc($logoimg/5);
+
+$title: var(--titleFontSize);
+$subtitle: var(--subtitleFontSize);
+$content: var(--contentFontSize);
+
+$option1: #eed2e8;
+$option2: #84cdee;
+$option3: #f6dbdb;
+
+@font-face {
+  font-family: BookAntiqua;
+  src: url('./fonts/bookantiqua.ttf');
+}
+@font-face {
+  font-family: BookAntiquaBold;
+  src: url('./fonts/bookantiqua_bold.ttf');
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  background-color: $background;
+  position: relative;
+  font-family: BookAntiqua, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+body, html {
+  overflow: visible;
+}
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+.hide {
+  display: none;
+}
+
+nav {
+  background-color: $primary;
+  width: 100%;
+  height: $navbarHeight;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  z-index: 100;
+}
+nav > p {
+  font-family: BookAntiquaBold;
+  font-size: $title;
+}
+.navContent {
+  background-color: $primary;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  left: 0;
+  width: 100%;
+  // height: calc(100vh - $navbarHeight);
+  padding: 2rem;
+  gap: 2rem;
+  z-index: -1;
+  transform: translateY(-$navbarHeight - 4rem);
+  transition: transform .5s ease;
+}
+.navContent.hide {
+  transform: translateY(-$navbarHeight - 4rem);
+}
+.navContent.show {
+  transform: translateY($navbarHeight + 4rem);
+  display: flex;
+}
+.navContent > li {
+  font-size: $subtitle;
+}
+button {
+  background-color: #0000;
+  border: none;
+}
+button:hover {
+  cursor: pointer;
+}
+.burgerMenu {
+  width: 3rem;
+  height: 3rem;
+}
+.burgerMenu > div {
+  position: relative;
+  top: 0;
+  left: 0;
+  margin: 1rem 0;
+  width: 2.4rem;
+  height: .15rem;
+  background-color: #000;
+  transition: all .3s ease;
+}
+.burgerMenu > div:first-child.open {
+  margin: 0;
+  margin-left: -3px;
+  transform: rotate(45deg);
+  transition: all .3s ease;
+}
+.burgerMenu > div:last-child.open {
+  margin: 0;
+  margin-top: -1px;
+  margin-left: -4px;
+  transform: rotate(-45deg);
+  transition: all .3s ease;
+}
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  padding: calc($logoimg/12);
+  margin-top: $navbarHeight;
+  gap: 1rem;
+}
+.aside {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 1rem;
+  align-items: center;
+}
+.navMenu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap: 1rem;
+}
+.myPhoto {
+  width: $logoimg;
+  height: $logoimg;
+  border-radius: 50%;
+  transition: all 0.4s ease;
+}
+.icon {
+  width: $iconSize;
+  height: $iconSize;
+  transition: all 0.4s ease;
+}
+.options {
+  display: flex;
+  width: 100%;
+  justify-content: space-evenly;
+}
+li > img {
+  margin-left: calc(($optionSize - $iconSize)/2 - 0.1rem);
+}
+.icon1 {
+  background-color: $option1;
+  border: 0.1rem solid $background;
+  display: flex;
+  align-items: center;
+  width: calc($optionSize);
+  height: calc($optionSize);
+  border-radius: $optionSize;
+  position: relative;
+  transition: all 0.4s ease;
+}
+.icon2 {
+  background-color: $option2;
+  border: 0.1rem solid $background;
+  display: flex;
+  align-items: center;
+  width: calc($optionSize);
+  height: calc($optionSize);
+  border-radius: $optionSize;
+  position: relative;
+  transition: all 0.4s ease;
+}
+.icon3 {
+  background-color: $option3;
+  border: 0.1rem solid $background;
+  display: flex;
+  align-items: center;
+  width: calc($optionSize);
+  height: calc($optionSize);
+  border-radius: $optionSize;
+  position: relative;
+  transition: all 0.4s ease;
+}
+.card {
+  display: flex;
+  flex-direction: column;
+  max-height: 15rem;
+  gap: calc($logoimg/16);
+}
+.card > h2 {
+  font-size: $subtitle;
+}
+.card > p {
+  font-size: $content;
+  overflow: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.container {
+  width: 100%;
+  background-color: $option1;
+  border-radius: $optionSize;
+  padding: 2rem;
+}
+
+@media (min-width: toRem(540)) {
+  .aside {
+    flex-direction: row;
+  }
+}
+@media (min-width: toRem(640)) {
+  .navContent {
+    display: flex;
+    height: auto;
+    width: auto;
+    flex-direction: row;
+    background-color: $primary;
+    position: relative;
+    left: 0;
+    padding: 0;
+    gap: 2rem;
+    z-index: inherit;
+    transition: transform .5s ease;
+  }
+  .navContent.hide {
+    transform: translateY(0);
+  }
+  .navContent > li {
+    font-size: $content;
+  }
+  .burgerMenu {
+    display: none;
+  }
+  .layout {
+    flex-direction: row;
+    padding: calc($logoimg/4);
+    gap: calc($logoimg/6);
+  }
+  .aside {
+    flex-direction: column;
+    width: 18rem;
+  }
+  .navMenu {
+    flex-direction: row;
+    padding-bottom: calc($logoimg/6 + $optionSize);
+  }
+  .options {
+    flex-direction: column;
+    width: calc($logoimg/6 + $optionSize);
+  }
+  .icon1 {
+    top: calc($logoimg/2 - $optionSize/2);
+    left: calc($logoimg/12);
+  }
+  .icon1:hover {
+    width: calc($optionSize + 5.5rem);
+    transition: all 0.4s ease;
+  }
+  .icon1::after {
+    position: absolute;
+    content: 'Sobre mí';
+    font-size: $content;
+    transition: all 0.4s ease;
+    top: 50%;
+    left: 90%;
+    transform: translate(-100%, -50%);
+    opacity: 0;
+    white-space: nowrap;
+  }
+  .icon1:hover::after {
+    opacity: 1;
+  }
+  .icon2 {
+    top: calc($logoimg/2 + $optionSize/4 - $logoimg/24);
+    right: calc($optionSize/2 - $logoimg/12);
+  }
+  .icon2:hover {
+    width: calc($optionSize + 6rem);
+    transition: all 0.4s ease;
+  }
+  .icon2::after {
+    position: absolute;
+    content: 'Proyectos';
+    font-size: $content;
+    transition: all 0.4s ease;
+    top: 50%;
+    left: 90%;
+    transform: translate(-100%, -50%);
+    opacity: 0;
+    white-space: nowrap;
+  }
+  .icon2:hover::after {
+    opacity: 1;
+  }
+  .icon3 {
+    top: calc($optionSize + $logoimg/12);
+    right: calc($logoimg/2 + $optionSize/2);
+  }
+  .icon3:hover {
+    width: calc($optionSize + 5.5rem);
+    transition: all 0.4s ease;
+  }
+  .icon3::after {
+    position: absolute;
+    content: 'Contacto';
+    font-size: $content;
+    transition: all 0.4s ease;
+    top: 50%;
+    left: 90%;
+    transform: translate(-100%, -50%);
+    opacity: 0;
+    white-space: nowrap;
+  }
+  .icon3:hover::after {
+    opacity: 1;
+  }
+  .card {
+    max-height: 100%;
+  }
+}
