@@ -1,33 +1,21 @@
-import React, { useState } from 'react'
+import React from 'react'
+import { Link } from 'react-router-dom'
 
-const Navbar = () => {
-  const [open, setOpen] = useState(false)
-  const routes = [{
-      title: 'Sobre mí'
-    }, {
-      title: 'Proyectos'
-    }, {
-      title: 'Contacto'
-    }
-  ]
+const Navbar = ({currentPage, changePage, routes}) => {
 
   return (
-    <nav>
-      <p>Oziel Lozano</p>
-      <ul className={`navContent ${open ? 'show' : 'hide'}`}>
-        {routes.map((route) => {
-          const { title } = route
+    <nav className='navbar'>
+      <Link to='/' className='nav-title'>Oziel Lozano</Link>
+      <div className={`nav-content`}>
+        {Object.values(routes).map((route) => {
+          const { id, title, linkPath } = route
           return (
-            <li>
+            <Link key={id} to={linkPath} className='nav-element'>
               {title}
-            </li>
+            </Link>
           )
         })}
-      </ul>
-      <button onClick={() => { setOpen(!open) }} className='burgerMenu'>
-        <div className={open ? 'open': 'closed'}></div>
-        <div className={open ? 'open' : 'closed'}></div>
-      </button>
+      </div>
     </nav>
   )
 }

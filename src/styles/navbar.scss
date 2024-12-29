@@ -1,0 +1,100 @@
+@function toRem($value) {
+  @return calc(($value / 16)) + rem;
+}
+$navbarHeight: 4.5rem;
+$primary: #e2eafc;
+
+a {
+  text-decoration: none;
+  color: #000;
+}
+ul {
+  list-style: none;
+}
+.navbar {
+  display: flex;
+  width: 100%;
+  height: $navbarHeight;
+  background-color: $primary;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.nav-title {
+  font-size: 2rem;
+}
+.nav-content {
+  display: none;
+}
+.nav-element::after {
+  bottom: 0;
+  content: "";
+  display: block;
+  height: 2px;
+  left: 50%;
+  position: relative;
+  width: 0;
+  background-color: #000;
+  transition: width 0.3s ease 0s, left 0.3s ease 0s;
+}
+.nav-element:hover::after {
+  width: 100%; 
+  left: 0; 
+}
+
+.layout {
+  margin-top: $navbarHeight;
+  margin-bottom: $navbarHeight;
+}
+
+.bottom-navbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: $navbarHeight;
+  background-color: $primary;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.bottom-nav-element {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.5rem;
+  border-radius: 1rem;
+}
+.bottom-nav-element:hover {
+  background-color: #0001;
+}
+.bottom-nav-icon {
+  width: 2rem;
+  height: 2rem;
+}
+
+.nav-link {
+  cursor: pointer;
+}
+
+@media (min-width: toRem(440)) {
+  .bottom-nav-icon {
+    width: 2.4rem;
+    height: 2.4rem;
+  }
+}
+@media (min-width: toRem(768)) {
+  .layout {
+    margin-bottom: 0;
+  }
+  .nav-content {
+    display: flex;
+    gap: 1rem;
+  }
+  .bottom-navbar {
+    display: none;
+  }
+}

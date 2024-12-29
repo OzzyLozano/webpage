@@ -4,11 +4,17 @@
 }
 
 /* variables & fonts */
-$primary: #0ff;
-$secondary: #f0f0f0;
-$background: #f0f0f0;
+$primary: #abc4ff;
+$secondary: #fff;
+$fontColor: #000;
+$background: #fff;
+
+$option1: #e2eafc;
+$option2: #ccdbfd;
+$option3: #b6ccfe;
 
 :root {
+  --aside: 100%;
   --width: 10rem;
   --titleFontSize: 1.6rem;
   --subtitleFontSize: 1.3rem;
@@ -16,6 +22,7 @@ $background: #f0f0f0;
 }
 @media (min-width: toRem(640)) {
   :root {
+    --aside: 14rem;
     --width: 8rem;
     --titleFontSize: 1.8rem;
     --subtitleFontSize: 1.4rem;
@@ -24,6 +31,7 @@ $background: #f0f0f0;
 }
 @media (min-width: toRem(768)) {
   :root {
+    --aside: 17rem;
     --width: 10rem;
     --titleFontSize: 2rem;
     --subtitleFontSize: 1.6rem;
@@ -31,11 +39,14 @@ $background: #f0f0f0;
 }
 @media (min-width: toRem(1024)) {
   :root {
+    --aside: 18rem;
     --width: 12rem;
   }
 }
 
+$sidebarHeight: 16rem;
 $navbarHeight: 4.5rem;
+$asideWidth: var(--aside);
 $logoimg: var(--width);
 $optionSize: calc($logoimg/3);
 $iconSize: calc($logoimg/5);
@@ -43,10 +54,6 @@ $iconSize: calc($logoimg/5);
 $title: var(--titleFontSize);
 $subtitle: var(--subtitleFontSize);
 $content: var(--contentFontSize);
-
-$option1: #eed2e8;
-$option2: #84cdee;
-$option3: #f6dbdb;
 
 @font-face {
   font-family: BookAntiqua;
@@ -67,22 +74,25 @@ html {
 }
 body {
   background-color: $background;
-  position: relative;
-  font-family: BookAntiqua, sans-serif;
+  font-family: sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 body, html {
   overflow: visible;
 }
+h1, h2, p, button, a {
+  text-decoration: none;
+  color: $fontColor;
+}
+li {
+  list-style: none;
+}
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
-.hide {
-  display: none;
-}
 
-nav {
+.navbar {
   background-color: $primary;
   width: 100%;
   height: $navbarHeight;
@@ -93,37 +103,51 @@ nav {
   align-items: center;
   justify-content: space-between;
   padding: 0 2rem;
-  z-index: 100;
+  z-index: 10;
 }
-nav > p {
-  font-family: BookAntiquaBold;
+.nav-title {
   font-size: $title;
 }
-.navContent {
-  background-color: $primary;
+.nav-content {
+  background-color: $background;
   list-style: none;
   display: flex;
   flex-direction: column;
-  align-items: center;
   position: absolute;
+  top: calc($navbarHeight);
   left: 0;
-  width: 100%;
-  // height: calc(100vh - $navbarHeight);
+  height: calc(100vh - $navbarHeight);
+  width: $sidebarHeight;
   padding: 2rem;
   gap: 2rem;
-  z-index: -1;
-  transform: translateY(-$navbarHeight - 4rem);
-  transition: transform .5s ease;
+  z-index: 10;
+  transition: left .5s ease;
 }
-.navContent.hide {
-  transform: translateY(-$navbarHeight - 4rem);
+.nav-content.hide {
+  left: 100%;
 }
-.navContent.show {
-  transform: translateY($navbarHeight + 4rem);
+.nav-content.show {
+  left: calc(100% - $sidebarHeight);
   display: flex;
 }
-.navContent > li {
+.nav-link {
   font-size: $subtitle;
+  cursor: pointer;
+}
+.nav-link::after {
+  bottom: 0;
+  content: "";
+  display: block;
+  height: 2px;
+  left: 50%;
+  position: relative;
+  width: 0;
+  background-color: $secondary;
+  transition: width 0.3s ease 0s, left 0.3s ease 0s;
+}
+.nav-link:hover::after {
+  width: 100%; 
+  left: 0; 
 }
 button {
   background-color: #0000;
@@ -133,7 +157,7 @@ button:hover {
   cursor: pointer;
 }
 .burgerMenu {
-  width: 3rem;
+  width: 2.4rem;
   height: 3rem;
 }
 .burgerMenu > div {
@@ -141,8 +165,8 @@ button:hover {
   top: 0;
   left: 0;
   margin: 1rem 0;
-  width: 2.4rem;
-  height: .15rem;
+  width: 100%;
+  height: toRem(3);
   background-color: #000;
   transition: all .3s ease;
 }
@@ -168,9 +192,10 @@ button:hover {
   gap: 1rem;
 }
 .aside {
+  z-index: 5;
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: $asideWidth;
   gap: 1rem;
   align-items: center;
 }
@@ -187,73 +212,86 @@ button:hover {
   border-radius: 50%;
   transition: all 0.4s ease;
 }
-.icon {
-  width: $iconSize;
-  height: $iconSize;
-  transition: all 0.4s ease;
-}
 .options {
   display: flex;
   width: 100%;
   justify-content: space-evenly;
 }
-li > img {
-  margin-left: calc(($optionSize - $iconSize)/2 - 0.1rem);
-}
-.icon1 {
-  background-color: $option1;
+.icon-container {
   border: 0.1rem solid $background;
   display: flex;
   align-items: center;
-  width: calc($optionSize);
-  height: calc($optionSize);
+  width: $optionSize;
+  height: $optionSize;
   border-radius: $optionSize;
   position: relative;
+}
+.icon {
+  width: $iconSize;
+  height: $iconSize;
+  margin-left: calc(($optionSize - $iconSize)/2 - 0.1rem);
+  transition: all 0.4s ease;
+}
+.icon1 {
+  background-color: $option1;
   transition: all 0.4s ease;
 }
 .icon2 {
   background-color: $option2;
-  border: 0.1rem solid $background;
-  display: flex;
-  align-items: center;
-  width: calc($optionSize);
-  height: calc($optionSize);
-  border-radius: $optionSize;
-  position: relative;
   transition: all 0.4s ease;
 }
 .icon3 {
   background-color: $option3;
-  border: 0.1rem solid $background;
-  display: flex;
-  align-items: center;
-  width: calc($optionSize);
-  height: calc($optionSize);
-  border-radius: $optionSize;
-  position: relative;
   transition: all 0.4s ease;
 }
 .card {
   display: flex;
   flex-direction: column;
-  max-height: 15rem;
   gap: calc($logoimg/16);
 }
-.card > h2 {
+.card-title {
   font-size: $subtitle;
 }
-.card > p {
+.card-content {
   font-size: $content;
   overflow: auto;
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
 
-.container {
+.home-content {
+  position: relative;
   width: 100%;
-  background-color: $option1;
-  border-radius: $optionSize;
+}
+.container {
+  z-index: 1;
+  width: 100%;
+  border-radius: 2rem;
   padding: 2rem;
+  opacity: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  transition: all 1s ease;
+}
+.container.hide {
+  opacity: 0;
+  transform: translateX(-110vw);
+}
+.about {
+  background-color: $option1;
+  position: absolute;
+  top: 0;
+}
+.projects {
+  background-color: $option2;
+  position: absolute;
+  top: 0;
+}
+.contact {
+  background-color: $option3;
+  position: absolute;
+  top: 0;
 }
 
 @media (min-width: toRem(540)) {
@@ -262,23 +300,24 @@ li > img {
   }
 }
 @media (min-width: toRem(640)) {
-  .navContent {
+  .nav-content {
     display: flex;
     height: auto;
     width: auto;
     flex-direction: row;
     background-color: $primary;
     position: relative;
+    top: 0;
     left: 0;
     padding: 0;
     gap: 2rem;
     z-index: inherit;
     transition: transform .5s ease;
   }
-  .navContent.hide {
-    transform: translateY(0);
+  .nav-content.hide {
+    left: 0;
   }
-  .navContent > li {
+  .nav-link {
     font-size: $content;
   }
   .burgerMenu {
@@ -291,7 +330,7 @@ li > img {
   }
   .aside {
     flex-direction: column;
-    width: 18rem;
+    width: $asideWidth;
   }
   .navMenu {
     flex-direction: row;
@@ -302,8 +341,8 @@ li > img {
     width: calc($logoimg/6 + $optionSize);
   }
   .icon1 {
-    top: calc($logoimg/2 - $optionSize/2);
-    left: calc($logoimg/12);
+    transform: translateY(calc($logoimg/2 - $optionSize/2));
+    transition: all 1s ease;
   }
   .icon1:hover {
     width: calc($optionSize + 5.5rem);
@@ -324,8 +363,8 @@ li > img {
     opacity: 1;
   }
   .icon2 {
-    top: calc($logoimg/2 + $optionSize/4 - $logoimg/24);
-    right: calc($optionSize/2 - $logoimg/12);
+    transform: translate(calc($logoimg/12 - $optionSize/2 - 1rem), calc($logoimg/2 + $optionSize/4 - $logoimg/24));
+    transition: all 1s ease;
   }
   .icon2:hover {
     width: calc($optionSize + 6rem);
@@ -346,8 +385,8 @@ li > img {
     opacity: 1;
   }
   .icon3 {
-    top: calc($optionSize + $logoimg/12);
-    right: calc($logoimg/2 + $optionSize/2);
+    transform: translate(calc(0rem - ($logoimg/2 + $optionSize/2 + 1rem)), calc($optionSize + $logoimg/12));
+    transition: all 1s ease;
   }
   .icon3:hover {
     width: calc($optionSize + 5.5rem);
@@ -367,7 +406,10 @@ li > img {
   .icon3:hover::after {
     opacity: 1;
   }
-  .card {
-    max-height: 100%;
+  .home-content {
+    position: absolute;
+    top: calc($navbarHeight + $logoimg/4);
+    left: calc($logoimg/4 + $asideWidth + 1rem);
+    width: calc(100% - ($logoimg/2 + $asideWidth));
   }
 }

@@ -1,0 +1,56 @@
+/* functions */
+@function toRem($value) {
+  @return calc(($value / 16)) + rem;
+}
+/* variables & fonts */
+:root {
+  --titleFontSize: 1.6rem;
+  --subtitleFontSize: 1.3rem;
+  --contentFontSize: 1rem;
+}
+@media (min-width: toRem(640)) {
+  :root {
+    --titleFontSize: 1.8rem;
+    --subtitleFontSize: 1.4rem;
+    --contentFontSize: 1.2rem;
+  }
+}
+@media (min-width: toRem(768)) {
+  :root {
+    --titleFontSize: 2rem;
+    --subtitleFontSize: 1.6rem;
+  }
+}
+/* font */
+@font-face {
+  font-family: ubuntu;
+  src: url('./fonts/ubuntu/Ubuntu-Regular.ttf');
+}
+/* colors */
+$primary: #abc4ff;
+$secondary: #fff;
+$fontColor: #000;
+$background: #fff;
+
+$option1: #e2eafc;
+$option2: #ccdbfd;
+$option3: #b6ccfe;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  font-family: ubuntu;
+}
+
+img {
+  width: 4rem;
+}
+
+@import './styles/navbar.scss'
+
