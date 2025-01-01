@@ -1,12 +1,5 @@
-@function toRem($value) {
-  @return calc(($value / 16)) + rem;
-}
-$navbarHeight: 4.5rem;
-$primary: #e2eafc;
-
 a {
   text-decoration: none;
-  color: #000;
 }
 ul {
   list-style: none;
@@ -15,19 +8,27 @@ ul {
   display: flex;
   width: 100%;
   height: $navbarHeight;
-  background-color: $primary;
   justify-content: space-between;
   align-items: center;
-  padding: 2rem;
+  padding: 0 1rem;
   position: absolute;
   top: 0;
   left: 0;
+  z-index: 10;
+  background: #fff2;
+  box-shadow: 0 0.25rem 1.8rem rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(0.6rem);
+  -webkit-backdrop-filter: blur(0.6rem);
 }
 .nav-title {
-  font-size: 2rem;
+  font-size: var(--titleFontSize);
+  color: $primary;
 }
 .nav-content {
   display: none;
+}
+.nav-element {
+  color: $primary;
 }
 .nav-element::after {
   bottom: 0;
@@ -37,7 +38,7 @@ ul {
   left: 50%;
   position: relative;
   width: 0;
-  background-color: #000;
+  background-color: $primary;
   transition: width 0.3s ease 0s, left 0.3s ease 0s;
 }
 .nav-element:hover::after {
@@ -46,7 +47,6 @@ ul {
 }
 
 .layout {
-  margin-top: $navbarHeight;
   margin-bottom: $navbarHeight;
 }
 
@@ -56,7 +56,7 @@ ul {
   left: 0;
   width: 100%;
   height: $navbarHeight;
-  background-color: $primary;
+  background-color: $alternativeColor;
   display: flex;
   align-items: center;
   justify-content: space-around;
@@ -67,6 +67,7 @@ ul {
   align-items: center;
   padding: 0.5rem;
   border-radius: 1rem;
+  color: $darkBackground;
 }
 .bottom-nav-element:hover {
   background-color: #0001;
@@ -75,20 +76,26 @@ ul {
   width: 2rem;
   height: 2rem;
 }
+.bottom-nav-element > p {
+  display: none;
+}
 
 .nav-link {
   cursor: pointer;
 }
 
-@media (min-width: toRem(440)) {
-  .bottom-nav-icon {
-    width: 2.4rem;
-    height: 2.4rem;
+@media (min-width: toRem(360)) {
+  .bottom-nav-element > p {
+    display: block;
   }
 }
 @media (min-width: toRem(768)) {
   .layout {
     margin-bottom: 0;
+  }
+  .navbar {
+    position: fixed;
+    padding: 0 4rem;
   }
   .nav-content {
     display: flex;
@@ -96,5 +103,10 @@ ul {
   }
   .bottom-navbar {
     display: none;
+  }
+}
+@media (min-width: toRem(1024)) {
+  .navbar {
+    padding: 0 6rem;
   }
 }

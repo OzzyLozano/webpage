@@ -1,0 +1,24 @@
+.my-avatar {
+  width: min(80vw, 20rem);
+  height: min(80vw, 20rem);
+  filter: drop-shadow(0 0 .75rem $darkBackground);
+}
+.introduction {
+  background: none !important;
+}
+.card {
+  background-color: $secondary;
+  width: 95%;
+  padding: 1rem;
+}
+.card-title {
+  font-size: var(--titleFontSize);
+  margin-bottom: 1rem;
+}
+
+@media (min-width: toRem(640)) {
+  .card {
+    width: 40rem;
+    padding: 2rem;
+  }
+}

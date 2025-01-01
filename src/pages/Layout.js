@@ -4,15 +4,15 @@ import Navbar from "./Components/Navbar";
 import Footer from './Components/Footer'
 import BottomNavbar from "./Components/BottomNavbar";
 
-const Layout = ({currentPage, changePage, routes}) => {
+const Layout = ({routes}) => {
   return (
     <>
-      <Navbar currentPage={currentPage} changePage={changePage} routes={routes} />
+      <Navbar routes={routes} />
       <div className='layout'>
         <Outlet />
       </div>
       <Footer />
-      <BottomNavbar currentPage={currentPage} changePage={changePage} routes={routes} />
+      <BottomNavbar routes={routes} />
     </>
   )
 }
